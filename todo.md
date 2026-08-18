@@ -1,23 +1,23 @@
 # Project TODO
 
-- [ ] Establish Recruit Raptor visual design system and responsive dashboard shell
-- [ ] Add sidebar navigation for Dashboard, Candidates, Vacancies, Clients, Placements, Commissions, CV Parser, and Settings
-- [ ] Build dashboard KPI cards and recruitment pipeline overview
-- [ ] Build candidate pipeline with color-coded editable candidate cards
-- [ ] Build candidate detail/edit interaction states
-- [ ] Build vacancies and clients management views
-- [ ] Build placements and commission tracking views
-- [ ] Build CV parser upload/review interface with AI extraction states
-- [ ] Build AI provider settings for OpenAI, Mistral, Gemini, OpenRouter, Nous, and custom endpoints
-- [ ] Add empty, loading, error, and success interaction states without fake customer testimonials or ratings
-- [ ] Add responsive layouts for desktop and smaller screens
-- [ ] Write or update Vitest coverage for the UI-facing logic and data contracts
-- [ ] Run type-checks, tests, and visual screenshot verification
-- [ ] Save a checkpoint for tester review
-- [ ] Define a recruiter-friendly workflow and information model for hospitality and tourism agencies
-- [ ] Research current AI document-parsing options, structured extraction, OCR, layout handling, and provider adapters
-- [ ] Update the CV parser design to include confidence, source evidence, human review, and fallback handling
-- [ ] Document recommended parsing integrations and their trade-offs
+- [x] Establish Recruit Raptor visual design system and responsive dashboard shell
+- [x] Add sidebar navigation for Dashboard, Candidates, Vacancies, Clients, Placements, Commissions, CV Parser, and Settings
+- [x] Build dashboard KPI cards and recruitment pipeline overview
+- [x] Build candidate pipeline with color-coded editable candidate cards
+- [x] Build candidate detail/edit interaction states
+- [x] Build vacancies and clients management views
+- [x] Build placements and commission tracking views
+- [x] Build CV parser upload/review interface with AI extraction states
+- [x] Build AI provider settings for OpenAI, Mistral, Gemini, OpenRouter, Nous, and custom endpoints
+- [x] Add empty, loading, error, and success interaction states without fake customer testimonials or ratings
+- [x] Add responsive layouts for desktop and smaller screens
+- [x] Write or update Vitest coverage for the UI-facing logic and data contracts
+- [x] Run type-checks, tests, and visual screenshot verification
+- [x] Save a checkpoint for tester review
+- [x] Define a recruiter-friendly workflow and information model for hospitality and tourism agencies
+- [x] Research current AI document-parsing options, structured extraction, OCR, layout handling, and provider adapters
+- [x] Update the CV parser design to include confidence, source evidence, human review, and fallback handling
+- [x] Document recommended parsing integrations and their trade-offs
 - [x] Refine visual system to a modern sleek black-and-orange palette
 - [x] Add calendar tab and dashboard agenda surface
 - [x] Support selecting a day and creating interview, candidate-start, and recruiter-task reminders
@@ -27,3 +27,23 @@
 - [x] Add hamburger control to reopen the full navigation menu
 - [x] Preserve tooltips or accessible labels when the sidebar is collapsed
 - [x] Verify main workspace expands correctly when navigation is collapsed
+- [x] Add real candidate edit actions with a detail panel and stage updates
+- [x] Replace vacancy and client placeholders with management screens and create/edit states
+- [x] Replace placement and commission placeholders with lifecycle and configurable commission forms
+- [x] Expand CV parser into a draft-review flow with extracted fields, confidence, evidence, loading, and error states
+- [x] Store a concrete hospitality and tourism recruiter workflow/information model in project documentation
+- [x] Add Shaun CV as a real parsing validation fixture without committing sensitive document contents
+- [x] Extract and map Shaun CV fields into the Recruit Raptor candidate schema
+- [x] Update parser review UI to display the real extracted fields and evidence
+- [x] Verify the Shaun CV review flow and record parsing findings
+- [x] Add explicit CV parsing failure state with retry and manual-entry fallback
+- [x] Add parser error messaging for unsupported files, extraction failures, and low-confidence results
+- [x] Remove raw Shaun CV extracted contents from the project directory
+- [x] Add a sanitized CV parsing validation fixture strategy without direct identifiers
+- [x] Standardize ZAR/R currency formatting across salary, commission, placement, invoice, vacancy, dashboard, and report interfaces
+- [x] Add a shared ZAR currency formatter and currency metadata contract
+- [x] Verify all displayed and editable money values use ZAR defaults
+- [ ] Save a fresh checkpoint covering the latest ZAR, parser, and management updates
+- [x] Apply shared ZAR formatting to candidate salary displays
+- [x] Add explicit ZAR-labeled monetary inputs to placement and commission records
+- [x] Verify remaining invoice, report, vacancy, placement, and commission money surfaces use ZAR

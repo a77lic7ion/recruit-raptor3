@@ -153,6 +153,13 @@ button, input, textarea { font: inherit; }
 .agenda-time { display:flex; height:32px; min-width:46px; align-items:center; justify-content:center; border-radius:8px; background:#ffedd5; color:#c2410c; font-size:10px; font-weight:700; }
 .agenda-purple { background:#eeeaff; color:#7257bd; } .agenda-green { background:#def8e9; color:#2d8758; } .agenda-orange { background:#ffedd5; color:#c2410c; }
 .empty-agenda { display:flex; min-height:150px; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.provider-row { display:flex; width:100%; align-items:center; gap:10px; border:1px solid transparent; border-radius:12px; padding:11px; transition:all .16s ease; }
+.provider-row:hover { background:#fff7ed; }
+.provider-row-active { border-color:#fed7aa; background:#fff7ed; }
+.provider-avatar { display:flex; height:34px; width:34px; flex:none; align-items:center; justify-content:center; border-radius:10px; background:#172033; color:#fff; font-size:12px; font-weight:800; }
+.provider-avatar-custom { background:#ffedd5; color:#c2410c; }
+.success-banner { display:flex; align-items:center; gap:8px; border-radius:10px; background:#ecfdf5; padding:10px 12px; color:#047857; font-size:11px; font-weight:600; }
+
 @media (max-width: 900px) { .calendar-layout { grid-template-columns:1fr; } }
 @media (max-width: 560px) { .calendar-day { min-height:58px; padding:6px; } .calendar-task { display:none; } }
 
