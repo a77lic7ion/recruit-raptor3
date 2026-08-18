@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -43,135 +43,119 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
+  --primary: oklch(0.22 0.03 258);
+  --primary-foreground: oklch(0.98 0.005 260);
+  --sidebar-primary: oklch(0.98 0.005 260);
+  --sidebar-primary-foreground: oklch(0.22 0.03 258);
+  --chart-1: oklch(0.68 0.2 293);
+  --chart-2: oklch(0.75 0.16 77);
+  --chart-3: oklch(0.73 0.15 184);
+  --chart-4: oklch(0.62 0.2 258);
+  --chart-5: oklch(0.72 0.16 35);
+  --radius: 0.8rem;
+  --background: oklch(0.98 0.004 260);
+  --foreground: oklch(0.22 0.03 258);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
+  --card-foreground: oklch(0.22 0.03 258);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  --popover-foreground: oklch(0.22 0.03 258);
+  --secondary: oklch(0.96 0.006 260);
+  --secondary-foreground: oklch(0.35 0.02 258);
+  --muted: oklch(0.96 0.006 260);
+  --muted-foreground: oklch(0.58 0.02 258);
+  --accent: oklch(0.95 0.02 293);
+  --accent-foreground: oklch(0.35 0.1 293);
+  --destructive: oklch(0.62 0.22 26);
+  --destructive-foreground: oklch(0.98 0.005 260);
+  --border: oklch(0.91 0.012 260);
+  --input: oklch(0.91 0.012 260);
+  --ring: oklch(0.62 0.2 258);
+  --sidebar: oklch(0.15 0.025 258);
+  --sidebar-foreground: oklch(0.92 0.01 260);
+  --sidebar-accent: oklch(0.23 0.035 258);
+  --sidebar-accent-foreground: oklch(0.98 0.005 260);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.62 0.2 258);
 }
 
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
-}
+* { box-sizing: border-box; }
+html { font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif; }
+body { margin: 0; background: #f7f8fb; }
+button, input, textarea { font: inherit; }
+.font-display { font-family: 'Space Grotesk', 'DM Sans', sans-serif; }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  button:not(:disabled),
-  [role="button"]:not([aria-disabled="true"]),
-  [type="button"]:not(:disabled),
-  [type="submit"]:not(:disabled),
-  [type="reset"]:not(:disabled),
-  a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
-    @apply cursor-pointer;
-  }
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]), [type="button"]:not(:disabled), [type="submit"]:not(:disabled), [type="reset"]:not(:disabled), a[href], select:not(:disabled), input[type="checkbox"]:not(:disabled), input[type="radio"]:not(:disabled) { @apply cursor-pointer; }
 }
 
-@layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
-  .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
-    padding-right: 1rem;
-  }
+.app-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 30; display: flex; width: 240px; flex-direction: column; background: #121b2c; color: #dbe4f0; transition: width .22s ease, transform .22s ease; }
+.app-sidebar-collapsed { width: 72px; }
+.app-sidebar-collapsed .nav-label, .app-sidebar-collapsed .eyebrow, .app-sidebar-collapsed .nav-count, .app-sidebar-collapsed .new-pill, .app-sidebar-collapsed .upgrade-card, .app-sidebar-collapsed .mt-5.flex { display: none; }
+.app-sidebar-collapsed .px-5 { justify-content: center; padding-left: 0; padding-right: 0; }
+.app-sidebar-collapsed .px-5 > div { justify-content: center; }
+.app-sidebar-collapsed .px-5 > div > div:last-of-type { display: none; }
+.app-sidebar-collapsed .px-3 { padding-left: 10px; padding-right: 10px; }
+.app-sidebar-collapsed .nav-item { justify-content: center; padding-left: 10px; padding-right: 10px; }
+.app-sidebar-collapsed .nav-item:hover::after { position: absolute; left: 62px; z-index: 60; border-radius: 6px; background: #202f47; padding: 6px 8px; color: white; content: attr(aria-label); white-space: nowrap; }
+.app-sidebar-collapsed .nav-item { position: relative; }
+.sidebar-collapse, .sidebar-reopen, .workspace-menu-button { display:flex; align-items:center; justify-content:center; border:0; border-radius:8px; background:transparent; color:#94a3b8; }
+.sidebar-collapse { height:28px; width:28px; }
+.sidebar-collapse:hover, .sidebar-reopen:hover, .workspace-menu-button:hover { background:#24344c; color:#fff; }
+.sidebar-reopen { position:absolute; left:20px; top:19px; display:none; height:34px; width:34px; background:#1e2d45; color:#fff; }
+.app-sidebar-collapsed .sidebar-reopen { display:flex; }
+.app-sidebar-collapsed .sidebar-collapse { display:none; }
+.workspace-menu-button { position:absolute; left:18px; top:17px; z-index:10; height:32px; width:32px; background:#121b2c; color:#fff; box-shadow:0 5px 14px rgba(15,23,42,.16); }
+.app-sidebar-collapsed + .main-shell, .main-shell-expanded { padding-left:72px; }
+.main-shell { min-height: 100vh; padding-left: 240px; }
+.topbar { display: flex; height: 68px; align-items: center; border-bottom: 1px solid #e8ebf1; background: rgba(255,255,255,.9); padding: 0 36px; backdrop-filter: blur(12px); }
+.page-content { max-width: 1440px; margin: 0 auto; padding: 38px 42px 56px; }
+.brand-mark { display:flex; height: 30px; width: 30px; align-items:center; justify-content:center; border-radius: 9px; background: #f9c74f; color: #172033; box-shadow: 0 6px 18px rgba(249,199,79,.18); }
+.eyebrow { color: #768198; font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+.nav-item { display:flex; width:100%; align-items:center; gap:12px; border: 0; border-radius: 9px; background: transparent; padding: 10px 12px; color:#94a3b8; text-align:left; font-size:12px; font-weight:600; transition: all .18s ease; }
+.nav-item:hover { background:#1b2940; color:#eef3fa; }
+.nav-item-active { background: #f8fafc; color:#172033; box-shadow: 0 4px 15px rgba(0,0,0,.08); }
+.nav-item-active:hover { background:#fff; color:#172033; }
+.nav-count { border-radius: 999px; background:#233149; padding: 2px 7px; color:#8fa0b8; font-size:10px; }
+.nav-count-active { background:#e7ecf3; color:#526078; }
+.new-pill { margin-left:auto; border-radius:5px; background:#4c3f8f; padding: 2px 5px; color:#c9c2ff; font-size:8px; font-weight:700; letter-spacing:.08em; }
+.upgrade-card { border:1px solid rgba(255,255,255,.08); border-radius: 15px; background: linear-gradient(145deg, #1a2a43, #172238); padding:14px; }
+.avatar { display:flex; height:34px; width:34px; flex-shrink:0; align-items:center; justify-content:center; border-radius: 11px; font-size:11px; font-weight:700; }
+.avatar-sky, .avatar-dark { background:#273850; color:#a9c8ff; }
+.avatar-violet { background:#ede8ff; color:#7257bd; }
+.avatar-blue { background:#e0efff; color:#3979bd; }
+.avatar-amber { background:#fff1cf; color:#b67812; }
+.avatar-emerald { background:#def8e9; color:#308356; }
+.status-dot { height:7px; width:7px; border-radius:50%; background:#38c77a; box-shadow: 0 0 0 4px #e3f8ec; }
+.dashboard-card { border:1px solid #e8ebf1; border-radius:16px; background:#fff; box-shadow: 0 5px 18px rgba(29, 41, 67, .035); }
+.metric-card { min-height: 145px; }
+.metric-icon { display:flex; height:32px; width:32px; align-items:center; justify-content:center; border-radius:10px; }
+.metric-orange { background:#fff0dc; color:#bf7621; } .metric-purple { background:#eeeaff; color:#7357bd; } .metric-green { background:#e2f8e9; color:#2d8d5c; } .metric-blue { background:#e3f0ff; color:#3c7fc6; }
+.stage-violet { background:#eeeaff; color:#7257bd; } .stage-blue { background:#e3f0ff; color:#377cbf; } .stage-amber { background:#fff1d4; color:#ad7419; } .stage-emerald { background:#def8e9; color:#2d8758; }
+.activity-icon { display:flex; height:31px; width:31px; flex-shrink:0; align-items:center; justify-content:center; border-radius:10px; } .activity-green { background:#e2f8e9; color:#2d8d5c; } .activity-purple { background:#eeeaff; color:#7257bd; } .activity-orange { background:#fff0dc; color:#bf7621; }
+.settings-nav { display:flex; width:100%; align-items:center; border:0; border-radius:9px; background:transparent; padding:11px 12px; color:#718096; text-align:left; font-size:12px; font-weight:600; } .settings-nav:hover { background:#f5f7fa; color:#172033; } .settings-nav-active { background:#f0f2f7; color:#172033; }
+.modal-backdrop { position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; background:rgba(15, 23, 42, .45); padding:20px; backdrop-filter:blur(5px); }
+.modal-card { width:100%; max-width:480px; border-radius:20px; background:white; padding:24px; box-shadow:0 25px 80px rgba(15,23,42,.22); }
+.mobile-menu, .mobile-close { display:none; border:0; background:transparent; color:inherit; }
+.wave { display:inline-block; color:#efaa36; font-size:.76em; transform: rotate(8deg); }
 
-  .flex {
-    min-height: 0;
-    min-width: 0;
-  }
-
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
-      padding-right: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem; /* 32px - desktop padding */
-      padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
-    }
-  }
+@media (max-width: 900px) {
+  .app-sidebar { transform: translateX(-100%); transition: transform .22s ease; box-shadow: 20px 0 40px rgba(15,23,42,.2); }
+  .app-sidebar-collapsed { width: 240px; transform: translateX(-100%); }
+  .app-sidebar-collapsed .nav-label, .app-sidebar-collapsed .eyebrow, .app-sidebar-collapsed .nav-count, .app-sidebar-collapsed .new-pill, .app-sidebar-collapsed .upgrade-card, .app-sidebar-collapsed .mt-5.flex { display: initial; }
+  .app-sidebar-collapsed .nav-item { justify-content: flex-start; }
+  .app-sidebar-collapsed .sidebar-reopen { display:none; }
+  .main-shell-expanded { padding-left:0; }
+  .app-sidebar-open { transform: translateX(0); }
+  .main-shell { padding-left:0; }
+  .mobile-menu { display:inline-flex; margin-right:14px; }
+  .mobile-close { display:inline-flex; }
+  .topbar { padding: 0 20px; }
+  .page-content { padding:30px 22px 46px; }
+}
+@media (max-width: 560px) {
+  .page-content { padding:24px 16px 36px; }
+  .topbar { height:60px; padding:0 16px; }
+  .metric-card { min-height:130px; }
 }

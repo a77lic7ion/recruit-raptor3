@@ -1,0 +1,29 @@
+# Project TODO
+
+- [ ] Establish Recruit Raptor visual design system and responsive dashboard shell
+- [ ] Add sidebar navigation for Dashboard, Candidates, Vacancies, Clients, Placements, Commissions, CV Parser, and Settings
+- [ ] Build dashboard KPI cards and recruitment pipeline overview
+- [ ] Build candidate pipeline with color-coded editable candidate cards
+- [ ] Build candidate detail/edit interaction states
+- [ ] Build vacancies and clients management views
+- [ ] Build placements and commission tracking views
+- [ ] Build CV parser upload/review interface with AI extraction states
+- [ ] Build AI provider settings for OpenAI, Mistral, Gemini, OpenRouter, Nous, and custom endpoints
+- [ ] Add empty, loading, error, and success interaction states without fake customer testimonials or ratings
+- [ ] Add responsive layouts for desktop and smaller screens
+- [ ] Write or update Vitest coverage for the UI-facing logic and data contracts
+- [ ] Run type-checks, tests, and visual screenshot verification
+- [ ] Save a checkpoint for tester review
+- [ ] Define a recruiter-friendly workflow and information model for hospitality and tourism agencies
+- [ ] Research current AI document-parsing options, structured extraction, OCR, layout handling, and provider adapters
+- [ ] Update the CV parser design to include confidence, source evidence, human review, and fallback handling
+- [ ] Document recommended parsing integrations and their trade-offs
+- [ ] Refine visual system to a modern sleek black-and-orange palette
+- [ ] Add calendar tab and dashboard agenda surface
+- [ ] Support selecting a day and creating interview, candidate-start, and recruiter-task reminders
+- [ ] Add task details, time, candidate/client link, reminder state, and completion interaction
+- [ ] Verify calendar and reminders on desktop and mobile layouts
+- [x] Add collapsible left sidebar with compact icon rail
+- [x] Add hamburger control to reopen the full navigation menu
+- [x] Preserve tooltips or accessible labels when the sidebar is collapsed
+- [x] Verify main workspace expands correctly when navigation is collapsed
