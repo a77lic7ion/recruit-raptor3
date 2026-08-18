@@ -110,3 +110,9 @@
 - [x] Verify modal contrast and responsive layout, then save a checkpoint
 - [x] Verify the updated CV parser modal at a small/mobile viewport and record readable button contrast and spacing
 - [x] Open the updated CV parser modal at 375px and explicitly verify button contrast, spacing, and hidden file-input presentation
+- [x] Make Save candidate draft create and retain a candidate after CV review
+- [x] Ensure candidate list, dashboard counts, and candidate detail views reflect parsed saves
+- [x] Add regression coverage and verify parsed-candidate persistence end to end
+- [x] Open a parsed-and-saved candidate in the detail/edit view and verify its fields
+- [x] Add automated regression coverage for parser save, local persistence, and candidate list/dashboard updates
+- [x] Add automated coverage for persisted candidate loading and candidate-count derivation used by the UI

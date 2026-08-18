@@ -51,3 +51,26 @@ describe("provider metadata filtering", () => {
     expect(isFreeModelMetadata({ id: "provider/paid-model", pricing: { prompt: 0.000001, completion: 0.000002 } })).toBe(false);
   });
 });
+
+import { upsertCandidateRecord } from "../shared/candidatePersistence";
+
+describe("parsed candidate persistence", () => {
+  it("creates a New candidate record and replaces duplicate names case-insensitively", () => {
+    const existing = upsertCandidateRecord([], { name: "Sarah Jacobs", role: "Front Office Manager", location: "Cape Town" });
+    const next = upsertCandidateRecord(existing, { name: "sarah jacobs", role: "Duty Manager", location: "Durban" });
+    expect(next).toHaveLength(1);
+    expect(next[0]).toMatchObject({ name: "sarah jacobs", role: "Duty Manager", location: "Durban", stage: "New", initials: "SJ" });
+  });
+});
+
+describe("persisted candidate loading", () => {
+  it("loads valid persisted candidates, ignores malformed payloads, and derives the dashboard count", async () => {
+    const { candidateCount, parsePersistedCandidates } = await import("../shared/candidatePersistence");
+    const candidate = upsertCandidateRecord([], { name: "Sarah Jacobs", role: "Front Office Manager", location: "Cape Town" })[0];
+    const loaded = parsePersistedCandidates(JSON.stringify([candidate]));
+    expect(loaded[0].name).toBe("Sarah Jacobs");
+    expect(candidateCount(loaded)).toBe(1);
+    expect(parsePersistedCandidates("not-json")).toEqual([]);
+    expect(parsePersistedCandidates(JSON.stringify({ name: "invalid" }))).toEqual([]);
+  });
+});

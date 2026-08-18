@@ -31,6 +31,7 @@ import { formatZar, recruitmentStages } from "../../../shared/recruitment";
 import { AI_PROVIDERS, isFreeModel } from "../../../shared/aiProviders";
 import { trpc } from "@/lib/trpc";
 import { extractCandidateDraft } from "../../../shared/cvParsing";
+import { candidateCount, parsePersistedCandidates, upsertCandidateRecord } from "../../../shared/candidatePersistence";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import pdfWorkerUrl from "pdfjs-dist/legacy/build/pdf.worker.mjs?url";
 import * as mammoth from "mammoth/mammoth.browser";
@@ -101,10 +102,18 @@ export default function Home() {
   const [showParser, setShowParser] = useState(false);
   const [editingCandidate, setEditingCandidate] = useState<Candidate | null>(null);
   const [candidateEdits, setCandidateEdits] = useState<Record<string, Partial<Candidate>>>({});
+  const [candidateRecords, setCandidateRecords] = useState<Candidate[]>(() => {
+    try {
+      const saved = window.localStorage.getItem("recruit-raptor-candidates");
+      return parsePersistedCandidates(saved) as Candidate[];
+    } catch {
+      return [];
+    }
+  });
 
   const filteredCandidates = useMemo(
-    () => candidates.map((candidate) => ({ ...candidate, ...candidateEdits[candidate.name] })).filter((candidate) => `${candidate.name} ${candidate.role} ${candidate.location}`.toLowerCase().includes(search.toLowerCase())),
-    [search, candidateEdits],
+    () => candidateRecords.map((candidate) => ({ ...candidate, ...candidateEdits[candidate.name] })).filter((candidate) => `${candidate.name} ${candidate.role} ${candidate.location}`.toLowerCase().includes(search.toLowerCase())),
+    [search, candidateEdits, candidateRecords],
   );
   const recruiterInitials = recruiter?.name.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase() || "U";
   if (!recruiter) return <SignupScreen onComplete={(profile) => { window.localStorage.setItem("recruit-raptor-recruiter", JSON.stringify(profile)); setRecruiter(profile); }} />;
@@ -163,13 +172,13 @@ export default function Home() {
 
             <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <MetricCard label="Commission earned" value={formatZar(0)} detail="Add placements to see totals" icon={CircleDollarSign} iconTone="orange" trend="up" />
-              <MetricCard label="In review" value={String(candidates.length)} detail="No candidates added yet" icon={Users} iconTone="purple" trend="neutral" />
+              <MetricCard label="In review" value={String(candidateCount(candidateRecords))} detail={candidateRecords.length ? "Parsed candidates awaiting review" : "No candidates added yet"} icon={Users} iconTone="purple" trend="neutral" />
               <MetricCard label="Placed this month" value="0" detail="No placements recorded yet" icon={CheckCircle2} iconTone="green" trend="up" />
               <MetricCard label="Open vacancies" value="0" detail="Add your first vacancy" icon={BriefcaseBusiness} iconTone="blue" trend="neutral" />
             </section>
 
             <section className="mt-5 grid gap-5 xl:grid-cols-[1.35fr_0.65fr]">
-              <Card className="dashboard-card overflow-hidden"><CardHeader className="flex flex-row items-start justify-between border-b border-slate-100 pb-5"><div><p className="eyebrow mb-1">Pipeline health</p><CardTitle className="font-display text-xl">Recruitment overview</CardTitle></div><button className="rounded-lg p-2 text-slate-400 hover:bg-slate-50"><MoreHorizontal className="h-5 w-5" /></button></CardHeader><CardContent className="p-5 sm:p-6"><div className="flex flex-col gap-6 sm:flex-row sm:items-center"><div className="flex h-36 w-36 shrink-0 flex-col items-center justify-center rounded-full border border-dashed border-orange-200 bg-orange-50/40"><span className="font-display text-3xl font-bold text-orange-500">0</span><span className="text-[10px] font-medium uppercase tracking-wider text-slate-400">Candidates</span></div><div className="grid flex-1 grid-cols-2 gap-x-6 gap-y-4">{pipeline.map((item) => <div key={item.label} className="flex items-center justify-between gap-2"><div className="flex items-center gap-2"><span className={`h-2 w-2 rounded-full ${item.color}`} /><span className="text-xs text-slate-500">{item.label}</span></div><span className="text-xs font-bold text-slate-900">{item.value}</span></div>)}</div></div><Separator className="my-6" /><div className="flex items-center justify-between text-xs"><span className="text-slate-400">Average time to placement</span><span className="font-semibold text-slate-500">Available after your first placement</span></div></CardContent></Card>
+              <Card className="dashboard-card overflow-hidden"><CardHeader className="flex flex-row items-start justify-between border-b border-slate-100 pb-5"><div><p className="eyebrow mb-1">Pipeline health</p><CardTitle className="font-display text-xl">Recruitment overview</CardTitle></div><button className="rounded-lg p-2 text-slate-400 hover:bg-slate-50"><MoreHorizontal className="h-5 w-5" /></button></CardHeader><CardContent className="p-5 sm:p-6"><div className="flex flex-col gap-6 sm:flex-row sm:items-center"><div className="flex h-36 w-36 shrink-0 flex-col items-center justify-center rounded-full border border-dashed border-orange-200 bg-orange-50/40"><span className="font-display text-3xl font-bold text-orange-500">{candidateCount(candidateRecords)}</span><span className="text-[10px] font-medium uppercase tracking-wider text-slate-400">Candidates</span></div><div className="grid flex-1 grid-cols-2 gap-x-6 gap-y-4">{pipeline.map((item) => { const value = item.label === "New" ? candidateRecords.filter((candidate) => candidate.stage === "New").length : 0; return <div key={item.label} className="flex items-center justify-between gap-2"><div className="flex items-center gap-2"><span className={`h-2 w-2 rounded-full ${item.color}`} /><span className="text-xs text-slate-500">{item.label}</span></div><span className="text-xs font-bold text-slate-900">{value}</span></div>; })}</div></div><Separator className="my-6" /><div className="flex items-center justify-between text-xs"><span className="text-slate-400">Average time to placement</span><span className="font-semibold text-slate-500">Available after your first placement</span></div></CardContent></Card>
               <Card className="dashboard-card"><CardHeader className="border-b border-slate-100 pb-5"><p className="eyebrow mb-1">This month</p><CardTitle className="font-display text-xl">Commission pulse</CardTitle></CardHeader><CardContent className="p-5 sm:p-6"><div className="flex items-end justify-between"><div><p className="font-display text-3xl font-bold tracking-tight">{formatZar(0)}</p><p className="mt-1 text-xs text-slate-400">No placement data yet</p></div><Badge className="border-0 bg-slate-100 text-[10px] font-semibold text-slate-500">Awaiting data</Badge></div><div className="mt-7 flex h-20 items-center justify-center rounded-xl border border-dashed border-orange-200 bg-orange-50/30 text-xs text-slate-400">Your commission trend will appear here</div><div className="mt-3 flex justify-between text-[10px] uppercase tracking-widest text-slate-400"><span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span></div></CardContent></Card>
             </section>
 
@@ -180,7 +189,12 @@ export default function Home() {
         </div>
       </main>
 
-      {showParser && <ParserModal onClose={() => setShowParser(false)} />}
+      {showParser && <ParserModal onClose={() => setShowParser(false)} onSave={(draft) => {
+        const next = upsertCandidateRecord(candidateRecords, draft);
+        setCandidateRecords(next);
+        window.localStorage.setItem("recruit-raptor-candidates", JSON.stringify(next));
+        setActiveNav("Candidates");
+      }} />}
       {editingCandidate && <CandidateEditModal candidate={editingCandidate} onClose={() => setEditingCandidate(null)} onSave={(changes) => { setCandidateEdits({ ...candidateEdits, [editingCandidate.name]: changes }); setEditingCandidate(null); }} />}
     </div>
   );
@@ -211,7 +225,7 @@ function ProviderSettings({ recruiter }: { recruiter: RecruiterProfile }) { cons
 
 function SettingsPanel() { return <div className="grid gap-5 lg:grid-cols-[0.65fr_1.35fr]"><Card className="dashboard-card"><CardContent className="space-y-1 p-3"><p className="eyebrow px-3 pb-2 pt-1">Workspace settings</p>{["Profile & branding", "Team members", "AI providers", "Commission rules", "Data & privacy"].map((item, index) => <button key={item} className={`settings-nav ${index === 0 ? "settings-nav-active" : ""}`}>{item}{index === 2 && <Badge className="ml-auto border-0 bg-amber-100 text-[9px] text-amber-800">AI</Badge>}</button>)}</CardContent></Card><Card className="dashboard-card"><CardHeader><p className="eyebrow mb-1">Profile & branding</p><CardTitle className="font-display text-xl">Make it yours</CardTitle></CardHeader><CardContent className="space-y-5"><div className="grid gap-4 sm:grid-cols-2"><label className="text-xs font-semibold text-slate-600">Agency name<Input className="mt-2 h-10 rounded-xl text-sm" defaultValue="Your agency name" /></label><label className="text-xs font-semibold text-slate-600">Default currency<div className="mt-2 flex h-10 items-center rounded-xl border border-slate-200 bg-white px-3 text-sm">ZAR (R) — South African Rand</div></label></div><label className="block text-xs font-semibold text-slate-600">Workspace description<Textarea className="mt-2 rounded-xl text-sm" defaultValue="Hospitality and tourism recruitment across Southern Africa." /></label><div className="flex justify-end"><Button className="rounded-xl bg-slate-950 text-xs font-semibold text-white">Save changes</Button></div></CardContent></Card></div> }
 
-function ParserModal({ onClose }: { onClose: () => void }) {
+function ParserModal({ onClose, onSave }: { onClose: () => void; onSave: (draft: { name: string; role: string; location: string }) => void }) {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [status, setStatus] = useState<"idle" | "extracting" | "review" | "failed">("idle");
   const [error, setError] = useState("");
@@ -269,6 +283,6 @@ function ParserModal({ onClose }: { onClose: () => void }) {
     {status === "extracting" && <div className="mt-5 flex items-center gap-3 rounded-xl bg-orange-50 p-3 text-xs font-semibold text-orange-700"><Loader2 className="h-4 w-4 animate-spin" /> Extracting candidate details and checking field confidence…</div>}
     {status === "failed" && <div className="mt-5 space-y-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-700"><div className="flex items-start gap-3"><X className="mt-0.5 h-4 w-4" /><div><p className="text-xs font-semibold">We could not confidently read this document</p><p className="mt-1 text-[11px] leading-5">Check that the file is a readable PDF or DOCX, try another provider, or continue with manual entry. No candidate has been saved.</p></div></div><Button variant="outline" onClick={() => setStatus("review")} className="h-9 rounded-lg bg-white text-[11px] font-semibold text-red-700">Continue with manual entry</Button></div>}
     {status === "review" && <div className="mt-6 space-y-4"><div className="review-banner"><CheckCircle2 className="h-4 w-4" /><div><p className="text-xs font-semibold">Draft candidate ready for review</p><p className="mt-1 text-[11px]">AI confidence {confidence}% · Review highlighted fields before saving.</p></div></div><label className="block text-xs font-semibold text-slate-600">Candidate name<Input value={name} onChange={(event) => setName(event.target.value)} className="mt-2 h-10 rounded-xl text-sm" /></label><label className="block text-xs font-semibold text-slate-600">Suggested role<Input value={role} onChange={(event) => setRole(event.target.value)} className="mt-2 h-10 rounded-xl text-sm" /></label><label className="block text-xs font-semibold text-slate-600">Location<Input value={location} onChange={(event) => setLocation(event.target.value)} className="mt-2 h-10 rounded-xl text-sm" /></label><div><div className="mb-2 flex justify-between text-[11px]"><span className="font-semibold text-slate-600">Extraction confidence</span><span className="font-bold text-emerald-600">{confidence}%</span></div><input type="range" min="50" max="100" value={confidence} onChange={(event) => setConfidence(Number(event.target.value))} className="w-full accent-orange-500" /></div><p className="text-[11px] leading-5 text-slate-400">Source evidence and confidence will appear after a real document is processed. Contact fields remain protected until recruiter confirmation.</p></div>}
-    <div className="mt-6 flex justify-end gap-2"><Button variant="ghost" onClick={onClose} className="modal-footer-button modal-secondary rounded-xl text-xs">Cancel</Button>{status === "review" ? <Button onClick={onClose} className="modal-footer-button rounded-xl bg-orange-500 text-xs font-semibold text-white hover:bg-orange-600">Save candidate draft <ArrowUpRight className="ml-2 h-3.5 w-3.5" /></Button> : <Button disabled={!uploadedFile || status === "extracting" || status === "failed"} onClick={extractUploadedCv} className="modal-footer-button rounded-xl bg-slate-950 text-xs font-semibold text-white disabled:opacity-40">Extract candidate details <ArrowUpRight className="ml-2 h-3.5 w-3.5" /></Button>}</div>
+    <div className="mt-6 flex justify-end gap-2"><Button variant="ghost" onClick={onClose} className="modal-footer-button modal-secondary rounded-xl text-xs">Cancel</Button>{status === "review" ? <Button onClick={() => { onSave({ name, role, location }); onClose(); }} className="modal-footer-button rounded-xl bg-orange-500 text-xs font-semibold text-white hover:bg-orange-600">Save candidate draft <ArrowUpRight className="ml-2 h-3.5 w-3.5" /></Button> : <Button disabled={!uploadedFile || status === "extracting" || status === "failed"} onClick={extractUploadedCv} className="modal-footer-button rounded-xl bg-slate-950 text-xs font-semibold text-white disabled:opacity-40">Extract candidate details <ArrowUpRight className="ml-2 h-3.5 w-3.5" /></Button>}</div>
   </div></div>;
 }
