@@ -47,3 +47,26 @@
 - [x] Apply shared ZAR formatting to candidate salary displays
 - [x] Add explicit ZAR-labeled monetary inputs to placement and commission records
 - [x] Verify remaining invoice, report, vacancy, placement, and commission money surfaces use ZAR
+- [x] Remove visible mock/demo candidate, client, vacancy, placement, commission, activity, and dashboard records
+- [x] Replace demo counts and financial totals with truthful empty states or user-entered data states
+- [x] Remove all dollar-symbol assumptions and keep ZAR only when real user-entered currency data exists
+- [x] Restyle sidebar as black with orange typography and accents
+- [x] Apply modern glassmorphism styling to buttons, cards, modals, and interactive surfaces
+- [x] Verify the cleaned UI has no mock data or dollar symbols and passes tests
+- [x] Remove visible Jesse/admin identity and generic admin copy from the UI
+- [x] Add first-run signup screen with recruiter name, email, password, and confirmation
+- [x] Use the signed-up recruiter name in the workspace header, greeting, avatar, and profile settings
+- [x] Add a clear sign-out/reset path for the UI session
+- [x] Replace browser-default grey-looking controls with branded modern glass buttons
+- [x] Verify the signup flow and button styling on desktop and mobile
+- [x] Normalize sidebar icon alignment, row heights, gaps, and padding in expanded and collapsed modes
+- [x] Ensure sidebar labels and count badges do not overlap icons or each other
+- [x] Bind the signed-up recruiter profile into Settings/Profile so recruiter name appears there as required
+- [x] Verify the new signup screen and glass button styling on a mobile viewport and record the result
+- [x] Re-run a final repository/UI scan after the last cleanup edits to confirm no visible demo records, demo identifiers, or dollar symbols remain
+- [x] Render a true Profile & branding settings surface with the signed-up recruiter name
+- [x] Reset the browser profile and verify the signup screen on a real 375px mobile viewport
+- [x] Run targeted visible-text scans for dollar currency output and demo identifiers after the final edit
+- [x] Recheck the cleaned UI after all final edits before checkpoint
+- [x] Produce an explicit zero-match result for visible dollar output and demo identifiers in rendered UI source
+- [x] Open the final Settings workspace and verify the Profile & branding card and recruiter name after the last edit
