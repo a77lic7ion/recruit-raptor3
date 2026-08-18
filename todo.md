@@ -43,7 +43,7 @@
 - [x] Standardize ZAR/R currency formatting across salary, commission, placement, invoice, vacancy, dashboard, and report interfaces
 - [x] Add a shared ZAR currency formatter and currency metadata contract
 - [x] Verify all displayed and editable money values use ZAR defaults
-- [ ] Save a fresh checkpoint covering the latest ZAR, parser, and management updates
+- [x] Save a fresh checkpoint covering the latest ZAR, parser, and management updates
 - [x] Apply shared ZAR formatting to candidate salary displays
 - [x] Add explicit ZAR-labeled monetary inputs to placement and commission records
 - [x] Verify remaining invoice, report, vacancy, placement, and commission money surfaces use ZAR
