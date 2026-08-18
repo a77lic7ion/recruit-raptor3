@@ -196,6 +196,7 @@ body { background: #ffffff; }
 .app-sidebar { background: #050505; color: #ff9a2e; border-right: 1px solid rgba(255, 154, 46, .16); box-shadow: 18px 0 46px rgba(0,0,0,.08); }
 .app-sidebar .nav-label, .app-sidebar .eyebrow, .app-sidebar .text-slate-400, .app-sidebar .text-slate-500, .app-sidebar .text-slate-600, .app-sidebar .text-slate-700, .app-sidebar .text-slate-800, .app-sidebar .text-slate-900 { color: #ff9a2e !important; }
 .app-sidebar .brand-mark { background: #ff8a1f; color: #050505; box-shadow: 0 0 24px rgba(255,138,31,.24); }
+.app-sidebar .sidebar-logo { flex:0 0 auto; }
 .nav-item { color: rgba(255,154,46,.78); }
 .nav-item:hover { background: rgba(255,154,46,.1); color: #ffb15a; }
 .nav-item-active, .nav-item-active:hover { background: rgba(255,154,46,.16); color: #ffb15a; box-shadow: inset 3px 0 #ff8a1f, 0 8px 26px rgba(0,0,0,.16); }
@@ -219,6 +220,25 @@ body { background: #ffffff; }
 button.bg-slate-950 { background: linear-gradient(135deg, #080808, #242424) !important; }
 button.bg-orange-500 { background: linear-gradient(135deg, #f97316, #ff9a2e) !important; box-shadow: 0 10px 24px rgba(249,115,22,.2); }
 @media (prefers-reduced-motion: reduce) { .dashboard-card, .page-content button, .modal-card button { transition: none; } }
+
+/* Reference-aligned onboarding, header, and control geometry */
+.signup-logo-wrap { display:flex; height:108px; width:86px; align-items:center; justify-content:center; overflow:hidden; border-radius:18px; background:#151c25; box-shadow:0 14px 30px rgba(15,23,42,.14); }
+.signup-logo { height:100%; width:100%; object-fit:contain; }
+.sidebar-logo { height:38px; width:30px; object-fit:contain; border-radius:8px; background:#151c25; }
+.auth-toggle { display:grid; grid-template-columns:1fr 1fr; gap:4px; border:1px solid rgba(15,23,42,.08); border-radius:14px; background:rgba(15,23,42,.045); padding:4px; }
+.auth-toggle button { min-height:36px; border-radius:10px; padding:8px 10px; text-align:center; font-size:11px; font-weight:700; color:#64748b; }
+.auth-toggle button:hover { color:#c85b0b; }
+.auth-toggle-active { background:#fff; color:#c85b0b !important; box-shadow:0 5px 14px rgba(15,23,42,.08); }
+.auth-submit { display:inline-flex !important; align-items:center; justify-content:center; text-align:center; }
+.topbar { display:flex; min-height:64px; align-items:center; gap:16px; }
+.topbar > div:first-of-type { display:flex; min-width:0; align-items:center; gap:8px; }
+.topbar > div:last-child { display:flex; align-items:center; gap:10px; }
+.topbar-workspace-group { display:flex; min-width:0; align-items:center; gap:8px; white-space:nowrap; }
+.topbar-status-group { display:flex; align-items:center; gap:12px; white-space:nowrap; }
+.topbar-status-label { display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:#64748b; }
+.topbar-status-group .avatar { flex:0 0 auto; }
+.page-content button, .modal-card button, .signup-card button { display:inline-flex; align-items:center; justify-content:center; text-align:center; vertical-align:middle; }
+.nav-item { justify-content:flex-start !important; text-align:left !important; }
 
 /* Onboarding and navigation geometry */
 .signup-shell { min-height: 100vh; display:flex; align-items:center; justify-content:center; padding:32px 18px; background: radial-gradient(circle at 20% 15%, rgba(255,138,31,.12), transparent 35%), #fff; }

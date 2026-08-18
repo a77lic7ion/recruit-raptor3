@@ -70,3 +70,18 @@
 - [x] Recheck the cleaned UI after all final edits before checkpoint
 - [x] Produce an explicit zero-match result for visible dollar output and demo identifiers in rendered UI source
 - [x] Open the final Settings workspace and verify the Profile & branding card and recruiter name after the last edit
+- [x] Inspect and document the supplied reference UI direction
+- [x] Add the supplied Raptor Recruiter image as the application logo
+- [x] Add a visible existing-user login option on the onboarding screen
+- [x] Add a login form state with email and password fields
+- [x] Fix header workspace/status/avatar spacing and alignment
+- [x] Center button labels and icons with consistent flex alignment
+- [x] Restyle filter, add-record, add-placement, and onboarding buttons to match the reference
+- [x] Verify logo, login, header, and button styling on desktop and mobile
+- [x] Perform targeted visual verification of the final workspace header on desktop
+- [x] Verify onboarding, login, filter, generic add-record, and placement workflow buttons after the reference restyle
+- [x] Recheck the final logged-in workspace on a mobile viewport for header, logo, and button alignment
+- [x] Record explicit desktop header pass evidence for workspace label, status indicator, avatar, and controls
+- [x] Record explicit button alignment evidence for onboarding, login, Filter, Add record, and Add placement
+- [x] Record explicit mobile logged-in verification evidence or document the environment limitation transparently
+- [x] Record explicit alignment evidence for the login submit button after the final reference-style changes

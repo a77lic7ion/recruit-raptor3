@@ -48,3 +48,9 @@
 
 - The Placements workspace now displays commission values as ZAR amounts, including R 42 500 and R 34 000, alongside candidate and client context.
 - This confirms the placement money surface is covered by the shared currency formatting approach.
+- Reference alignment pass: the supplied Raptor Recruiter logo renders in the sidebar and onboarding card; signup and existing-user login tabs render as separate aligned controls; the logged-in desktop header shows Workspace, workspace selector, green readiness indicator, recruiter identity, and avatar in one centered row.
+- Placements workspace shows the centered Add placement action alongside Filter and Add record controls.
+- The 375px onboarding screenshot shows the logo, auth toggle, stacked inputs, and centered orange action button without overlap.
+- A separate Playwright mobile logged-in viewport attempt was unavailable because the configured Firefox executable was not installed; responsive mobile onboarding was verified instead.
+- Final desktop geometry measurement: workspace selector group rendered as flex with 8px gap and centered alignment; status/recruiter group rendered as flex with 10px gap and centered alignment; Upload CV rendered inline-flex with center/center alignment; Add candidate rendered inline-flex with center/center alignment; Filter, Add record, and Add placement were measured earlier with the same center alignment rules.
+- Final login submit measurement: Log in rendered inline-flex with align-items:center, justify-content:center, and text-align:center.

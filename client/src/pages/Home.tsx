@@ -59,6 +59,7 @@ const activity: { icon: typeof CheckCircle2; tone: string; title: string; meta: 
 type RecruiterProfile = { name: string; email: string };
 
 function SignupScreen({ onComplete }: { onComplete: (profile: RecruiterProfile) => void }) {
+  const [mode, setMode] = useState<"signup" | "login">("signup");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -67,12 +68,20 @@ function SignupScreen({ onComplete }: { onComplete: (profile: RecruiterProfile) 
 
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!name.trim() || !email.trim() || password.length < 8) return setError("Enter your name, a valid email, and a password of at least 8 characters.");
-    if (password !== confirmation) return setError("The passwords do not match.");
-    onComplete({ name: name.trim(), email: email.trim() });
+    if (mode === "signup") {
+      if (!name.trim() || !email.trim() || password.length < 8) return setError("Enter your name, a valid email, and a password of at least 8 characters.");
+      if (password !== confirmation) return setError("The passwords do not match.");
+      return onComplete({ name: name.trim(), email: email.trim() });
+    }
+    if (!email.trim() || password.length < 8) return setError("Enter your email and password to continue.");
+    const saved = window.localStorage.getItem("recruit-raptor-recruiter");
+    if (!saved) return setError("No local recruiter profile exists yet. Create a workspace first.");
+    const profile = JSON.parse(saved) as RecruiterProfile;
+    if (profile.email.toLowerCase() !== email.trim().toLowerCase()) return setError("That email does not match the saved recruiter profile.");
+    onComplete(profile);
   };
 
-  return <main className="signup-shell"><section className="signup-card"><div className="brand-mark signup-brand"><Zap className="h-5 w-5 fill-current" /></div><p className="eyebrow mt-6 text-orange-500">Recruit Raptor</p><h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-slate-950">Set up your recruiter workspace.</h1><p className="mt-3 text-sm leading-6 text-slate-500">Create your local profile to start managing candidates, placements, reminders, and commission records.</p><form onSubmit={submit} className="mt-7 space-y-4"><label className="block text-xs font-semibold text-slate-600">Recruiter name<Input value={name} onChange={(event) => setName(event.target.value)} placeholder="Your name" className="mt-2 h-11 rounded-xl" required /></label><label className="block text-xs font-semibold text-slate-600">Email address<Input value={email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="you@agency.co.za" className="mt-2 h-11 rounded-xl" required /></label><label className="block text-xs font-semibold text-slate-600">Password<Input value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder="At least 8 characters" className="mt-2 h-11 rounded-xl" required /></label><label className="block text-xs font-semibold text-slate-600">Confirm password<Input value={confirmation} onChange={(event) => setConfirmation(event.target.value)} type="password" placeholder="Repeat your password" className="mt-2 h-11 rounded-xl" required /></label>{error && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-xs font-medium text-red-700">{error}</p>}<Button type="submit" className="w-full rounded-xl bg-orange-500 py-5 text-sm font-semibold text-white hover:bg-orange-600">Create recruiter workspace <ArrowUpRight className="ml-2 h-4 w-4" /></Button></form><p className="mt-5 text-center text-[11px] text-slate-400">Your profile is saved locally in this browser for this UI-first test build.</p></section></main>;
+  return <main className="signup-shell"><section className="signup-card"><div className="signup-logo-wrap"><img src="/manus-storage/raptor-recruiter-logo_2f6ffb82.png" alt="Raptor Recruiter" className="signup-logo" /></div><p className="eyebrow mt-5 text-orange-500">Recruit Raptor</p><h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-slate-950">{mode === "signup" ? "Set up your recruiter workspace." : "Welcome back."}</h1><p className="mt-3 text-sm leading-6 text-slate-500">{mode === "signup" ? "Create your local profile to start managing candidates, placements, reminders, and commission records." : "Log in to continue to your recruiter workspace."}</p><div className="auth-toggle mt-6" role="tablist" aria-label="Account access"><button type="button" role="tab" aria-selected={mode === "signup"} onClick={() => { setMode("signup"); setError(""); }} className={mode === "signup" ? "auth-toggle-active" : ""}>Create account</button><button type="button" role="tab" aria-selected={mode === "login"} onClick={() => { setMode("login"); setError(""); }} className={mode === "login" ? "auth-toggle-active" : ""}>Existing user login</button></div><form onSubmit={submit} className="mt-6 space-y-4">{mode === "signup" && <label className="block text-xs font-semibold text-slate-600">Recruiter name<Input value={name} onChange={(event) => setName(event.target.value)} placeholder="Your name" className="mt-2 h-11 rounded-xl" required /></label>}<label className="block text-xs font-semibold text-slate-600">Email address<Input value={email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="you@agency.co.za" className="mt-2 h-11 rounded-xl" required /></label><label className="block text-xs font-semibold text-slate-600">Password<Input value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder="At least 8 characters" className="mt-2 h-11 rounded-xl" required /></label>{mode === "signup" && <label className="block text-xs font-semibold text-slate-600">Confirm password<Input value={confirmation} onChange={(event) => setConfirmation(event.target.value)} type="password" placeholder="Repeat your password" className="mt-2 h-11 rounded-xl" required /></label>}{error && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-xs font-medium text-red-700">{error}</p>}<Button type="submit" className="auth-submit w-full rounded-xl bg-orange-500 py-5 text-sm font-semibold text-white hover:bg-orange-600">{mode === "signup" ? "Create recruiter workspace" : "Log in"}<ArrowUpRight className="ml-2 h-4 w-4" /></Button></form><p className="mt-5 text-center text-[11px] text-slate-400">This UI-first build stores the local profile in this browser.</p></section></main>;
 }
 
 export default function Home() {
@@ -98,7 +107,7 @@ export default function Home() {
         <button className="sidebar-reopen" aria-label="Open navigation" onClick={() => setSidebarCollapsed(false)}><Menu className="h-5 w-5" /></button>
         <div className="flex items-center justify-between px-5 pb-8 pt-6">
           <div className="flex items-center gap-3">
-            <div className="brand-mark"><Zap className="h-4 w-4 fill-current" /></div>
+            <img src="/manus-storage/raptor-recruiter-logo_2f6ffb82.png" alt="Raptor Recruiter logo" className="sidebar-logo" />
             <div>
               <p className="font-display text-[17px] font-bold tracking-tight">Recruit Raptor</p>
               <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">Recruitment OS</p>
@@ -136,8 +145,8 @@ export default function Home() {
         {sidebarCollapsed && <button className="workspace-menu-button" aria-label="Open navigation" onClick={() => setSidebarCollapsed(false)}><Menu className="h-4 w-4" /></button>}
         <header className="topbar">
           <button className="mobile-menu" onClick={() => setMobileNav(true)}><Menu className="h-5 w-5" /></button>
-          <div className="flex items-center gap-2 text-sm text-slate-500"><span className="hidden sm:inline">Workspace</span><ChevronDown className="h-4 w-4" /><span className="font-semibold text-orange-400">Your workspace</span></div>
-          <div className="ml-auto flex items-center gap-3"><div className="status-dot" /><span className="hidden text-xs font-medium text-slate-500 sm:inline">Workspace ready</span><div className="avatar avatar-dark">{recruiterInitials}</div></div>
+          <div className="topbar-workspace-group" aria-label="Workspace selector"><span className="hidden sm:inline">Workspace</span><ChevronDown className="h-4 w-4 shrink-0" aria-hidden="true" /><span className="font-semibold text-orange-400">Your workspace</span></div>
+          <div className="topbar-status-group" aria-label="Workspace status and recruiter"><span className="topbar-status-label"><span className="status-dot" aria-hidden="true" />Workspace ready</span><div className="avatar avatar-dark">{recruiterInitials}</div></div>
         </header>
 
         <div className="page-content">
