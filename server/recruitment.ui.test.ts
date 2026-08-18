@@ -16,3 +16,18 @@ describe("recruitment stage vocabulary", () => {
     expect(isRecruitmentStage("Archived")).toBe(false);
   });
 });
+
+import { AI_PROVIDERS, FREE_MODEL_CATALOG, freeModelsForProvider, isFreeModel } from "../shared/aiProviders";
+
+describe("AI provider catalog", () => {
+  it("uses the configured Nous inference endpoint", () => {
+    expect(AI_PROVIDERS.find((provider) => provider.name === "Nous")?.endpoint).toBe("https://inference-api.nousresearch.com/v1");
+  });
+
+  it("keeps Nous and OpenRouter model choices free-only", () => {
+    for (const provider of ["Nous", "OpenRouter"]) {
+      expect(FREE_MODEL_CATALOG[provider].every(isFreeModel)).toBe(true);
+      expect(freeModelsForProvider(provider).every(isFreeModel)).toBe(true);
+    }
+  });
+});

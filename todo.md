@@ -85,3 +85,16 @@
 - [x] Record explicit button alignment evidence for onboarding, login, Filter, Add record, and Add placement
 - [x] Record explicit mobile logged-in verification evidence or document the environment limitation transparently
 - [x] Record explicit alignment evidence for the login submit button after the final reference-style changes
+- [x] Redesign the CV parser and workspace modals with a more polished glassmorphism treatment inspired by the supplied reference
+- [x] Restructure the Settings page with clearer navigation, provider configuration hierarchy, and profile/data sections
+- [x] Set the Nous API endpoint to https://inference-api.nousresearch.com/v1
+- [x] Restrict Nous and OpenRouter model lists to free models only
+- [x] Add tests and visual verification for the settings/provider changes
+- [x] Make the CV parser drop zone open a native file picker on click and accept dropped files
+- [x] Verify selected CV file state and extraction flow after the upload fix
+- [x] Verify remaining workspace modal variants use the refined modal treatment, or narrow the documented scope accurately
+- [x] Confirm the final Settings navigation, provider hierarchy, profile/data sections, and Nous endpoint in source and UI
+- [x] Add focused tests for OpenRouter and Nous free-model filtering and verify both selectors
+- [x] Append explicit final Settings/provider visual verification notes
+- [x] Select Nous in final Settings and verify the endpoint field renders https://inference-api.nousresearch.com/v1
+- [x] Fetch models for both OpenRouter and Nous in final Settings and verify every rendered option is free-only
