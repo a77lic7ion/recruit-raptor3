@@ -105,3 +105,8 @@
 - [x] Remove legacy .doc from the parser’s accepted formats and user-facing copy unless true legacy .doc extraction is implemented
 - [x] Add loading, error, and retry feedback for provider model discovery and connection testing
 - [x] Make provider error recovery retry the same failed action: test connection or fetch models
+- [x] Replace unreadable black modal actions with high-contrast branded buttons
+- [x] Remove the visible browser-default file chooser from the CV parser modal while retaining click-to-browse behavior
+- [x] Verify modal contrast and responsive layout, then save a checkpoint
+- [x] Verify the updated CV parser modal at a small/mobile viewport and record readable button contrast and spacing
+- [x] Open the updated CV parser modal at 375px and explicitly verify button contrast, spacing, and hidden file-input presentation
