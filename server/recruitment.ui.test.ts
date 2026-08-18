@@ -31,3 +31,23 @@ describe("AI provider catalog", () => {
     }
   });
 });
+
+import { extractCandidateDraft } from "../shared/cvParsing";
+import { isFreeModelMetadata } from "../shared/aiProviders";
+
+describe("CV extraction", () => {
+  it("maps parsed hospitality CV text into review fields", () => {
+    const draft = extractCandidateDraft("Sarah Jacobs\nFront Office Manager\nCape Town\nsarah@example.co.za");
+    expect(draft.name).toBe("Sarah Jacobs");
+    expect(draft.role).toContain("Front Office Manager");
+    expect(draft.location).toBe("cape town");
+    expect(draft.confidence).toBeGreaterThan(70);
+  });
+});
+
+describe("provider metadata filtering", () => {
+  it("accepts zero-priced model metadata even without a free suffix", () => {
+    expect(isFreeModelMetadata({ id: "provider/open-model", pricing: { prompt: 0, completion: 0 } })).toBe(true);
+    expect(isFreeModelMetadata({ id: "provider/paid-model", pricing: { prompt: 0.000001, completion: 0.000002 } })).toBe(false);
+  });
+});

@@ -24,12 +24,35 @@ export const FREE_MODEL_CATALOG: Record<string, string[]> = {
   ],
 };
 
+export type ProviderModelMetadata = { id: string; pricing?: { prompt?: string | number; completion?: string | number } };
+
 export function isFreeModel(model: string) {
   return model.endsWith(":free") || model.toLowerCase().includes("free");
+}
+
+export function isFreeModelMetadata(model: ProviderModelMetadata) {
+  const prompt = Number(model.pricing?.prompt ?? NaN);
+  const completion = Number(model.pricing?.completion ?? NaN);
+  return isFreeModel(model.id) || (Number.isFinite(prompt) && Number.isFinite(completion) && prompt === 0 && completion === 0);
 }
 
 export function freeModelsForProvider(provider: string, selectedModel?: string) {
   const catalog = FREE_MODEL_CATALOG[provider];
   if (!catalog) return [selectedModel ?? "custom-model-1", "fast-extraction", "long-context"];
   return Array.from(new Set([...(selectedModel && isFreeModel(selectedModel) ? [selectedModel] : []), ...catalog]));
+}
+
+export async function discoverFreeModels(endpoint: string, provider: string, apiKey?: string) {
+  const fallback = freeModelsForProvider(provider);
+  try {
+    const response = await fetch(`${endpoint.replace(/\/$/, "")}/models`, {
+      headers: apiKey ? { Authorization: `Bearer ${apiKey}` } : undefined,
+    });
+    if (!response.ok) throw new Error(`Model discovery returned ${response.status}`);
+    const payload = (await response.json()) as { data?: ProviderModelMetadata[] };
+    const discovered = (payload.data ?? []).filter(isFreeModelMetadata).map((model) => model.id);
+    return Array.from(new Set([...discovered, ...fallback]));
+  } catch {
+    return fallback;
+  }
 }

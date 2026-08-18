@@ -98,3 +98,10 @@
 - [x] Append explicit final Settings/provider visual verification notes
 - [x] Select Nous in final Settings and verify the endpoint field renders https://inference-api.nousresearch.com/v1
 - [x] Fetch models for both OpenRouter and Nous in final Settings and verify every rendered option is free-only
+- [x] Restore actual CV extraction from uploaded documents instead of only transitioning to an empty review form
+- [x] Replace limited OpenRouter and Nous free-model lists with provider-aware live model discovery and free-only filtering
+- [x] Add regression tests for extracted fields and expanded free-model filtering
+- [x] Verify CV parsing and both provider selectors in the live preview
+- [x] Remove legacy .doc from the parser’s accepted formats and user-facing copy unless true legacy .doc extraction is implemented
+- [x] Add loading, error, and retry feedback for provider model discovery and connection testing
+- [x] Make provider error recovery retry the same failed action: test connection or fetch models
