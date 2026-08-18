@@ -18,11 +18,11 @@
 - [ ] Research current AI document-parsing options, structured extraction, OCR, layout handling, and provider adapters
 - [ ] Update the CV parser design to include confidence, source evidence, human review, and fallback handling
 - [ ] Document recommended parsing integrations and their trade-offs
-- [ ] Refine visual system to a modern sleek black-and-orange palette
-- [ ] Add calendar tab and dashboard agenda surface
-- [ ] Support selecting a day and creating interview, candidate-start, and recruiter-task reminders
-- [ ] Add task details, time, candidate/client link, reminder state, and completion interaction
-- [ ] Verify calendar and reminders on desktop and mobile layouts
+- [x] Refine visual system to a modern sleek black-and-orange palette
+- [x] Add calendar tab and dashboard agenda surface
+- [x] Support selecting a day and creating interview, candidate-start, and recruiter-task reminders
+- [x] Add task details, time, candidate/client link, reminder state, and completion interaction
+- [x] Verify calendar and reminders on desktop and mobile layouts
 - [x] Add collapsible left sidebar with compact icon rail
 - [x] Add hamburger control to reopen the full navigation menu
 - [x] Preserve tooltips or accessible labels when the sidebar is collapsed
